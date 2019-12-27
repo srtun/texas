@@ -3,6 +3,9 @@
 using namespace std;
 
 void test() {
-	cout << "success" << endl;
+	int a = 1;
+	double b = a / 10;
+	cout << b;
+
 	return;
 }

@@ -12,7 +12,9 @@ public:
 	Poker(int, int);
 
 	int figure();
+	string figure_str();
 	string suit();
+	int suit_int();
 	int rank();
 
 	void set_figure(int);
@@ -21,7 +23,10 @@ public:
 
 private:
 	int _figure;
+	string _figure_str;
+	int _suit_int;
 	string _suit;
 	int _rank;
 	vector<string> suit_type = {"spade", "heart", "diamond", "club"};
+	vector<string> figure_name = {"", "A", "2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K"};
 };

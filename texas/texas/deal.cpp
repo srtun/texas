@@ -10,8 +10,8 @@ deal the cards to the players
 
 using namespace std;
 
-//void deal(Poker &player) {
-void deal(vector<vector<Poker>> &player){
+void deal(vector<Poker> &player, vector<bool>& card_pool) {
+//void deal(vector<vector<Poker>> &player){
     // rand function : generator and distribution
     // random figure
     random_device rd;
@@ -24,9 +24,10 @@ void deal(vector<vector<Poker>> &player){
     uniform_int_distribution<int> dis1(0, 3);
     auto rand_suit = bind(dis1, gen1);
 
-    vector<bool> card_pool (13*4 + 1, true);
+    //vector<bool> card_pool (13*4 + 1, true);
 
     // deal the card
+    /*
     int num_players = player.size(), hands = player[0].size();
     for (int p = 0; p < num_players; ++p) {
         for (int h = 0; h < hands; ++h) {
@@ -40,8 +41,18 @@ void deal(vector<vector<Poker>> &player){
             player[p][h].set_suit(s);
             card_pool[s * 13 + fig] = false;
         }
+    }*/
+    int hands = player.size();
+    for (int h = 0; h < hands; ++h) {
+        int s = rand_suit();
+        int fig = rand_figure();
+        while (!card_pool[s * 13 + fig]) {
+            s = rand_suit();
+            fig = rand_figure();
+        }
+        player[h].set_figure(fig);
+        player[h].set_suit(s);
+        card_pool[s * 13 + fig] = false;
     }
-    //player.set_figure(rand_figure());
-    //player.set_suit(rand_suit());
     return;
 }

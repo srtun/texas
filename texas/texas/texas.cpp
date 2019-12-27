@@ -8,12 +8,12 @@
 #include <random>
 #include <functional>
 #include "function.h"
-//#include "poker.h"
 
 using namespace std;
 
 int main()
 {
+    
     int rounds = 10000;
     int r = rounds;
     int times = 0;
@@ -22,50 +22,61 @@ int main()
     vector<int> stat (10, 0);
     while (r--) {
         // decide the player number
-        cout << ++times;
-        int p = 5, hands = 5;
+        cout << ++times << endl;
+        int p = 5, hands = 2;
+        vector<bool> card_pool (13 * 4 + 1, true);
         vector<vector<Poker>> player;
         player.resize(p);
         for (int i = 0; i < p; ++i) {
             player[i].resize(hands);
         }
+        // deal the hand card
+        for (int i = 0; i < p; ++i) {
+            deal(player[i], card_pool);
+        }
+        //deal(player);
+        // deal the board card
+        vector<Poker> board;
+        board.resize(5);
+        deal(board, card_pool);
 
-        // deal the cards
-        /*for (int ix = 0; ix < p; ++ix) {
-            vector<Poker> ::iterator iter = player[ix].begin();
-            for (int iy = 0; iter != player[ix].end(); ++iter, ++iy) {
-                deal(*iter);
-            }
-        }*/
-        deal(player);
+        // set the card by human
         /*
         int input_fig = 0;
         int input_suit = 0;
-        for (int i = 0; i < 2; ++i) {
+        for (int i = 0; i < p; ++i) {
             for (int j = 0; j < hands; ++j) {
                 cin >> input_fig >> input_suit;
                 player[i][j].set_figure(input_fig);
                 player[i][j].set_suit(input_suit);
             }
-        }*/
+        }
+        cin.get();
+        */
+
+        // print the hand cards
         
-        // print the cards
-        /*
         for (int ix = 0; ix < p; ++ix) {
             vector<Poker> ::iterator iter = player[ix].begin();
             for (int iy = 0; iter != player[ix].end(); ++iter, ++iy) {
-                cout << (*iter).figure();
+                cout << (*iter).figure_str();
                 cout << (*iter).suit()[0] << " ";
             }
             cout << endl;
         }
         cout << endl;
-        */
+        
+        // print the board cards
+        
+        cout << "board card: " << endl;
+        for (int i = 0; i < board.size(); ++i) {
+            cout << board[i].figure_str();
+            cout << board[i].suit()[0] << " ";
+        }
+        cout << endl << endl;
+        
+        vector<int> winner = compare(player, board);
 
-        //cout << "player " << compare(player) << " wins" << endl;
-        vector<int> winner = compare(player);
-        //winner = compare(player);
-        //cout << winner;
 
         //stat
         for (int i = 0; i < p; ++i) {
@@ -76,7 +87,7 @@ int main()
         }
         
         // print the result
-        /*
+        
         if (winner.size() == p) {
             cout << "tie!!" << endl;
         }
@@ -87,9 +98,9 @@ int main()
             }
             cout << "win(s)" << endl;
         }
-        if(winner.size() > 1) cin.get();
-        //cin.get();
-        */
+        
+        //if(winner.size() > 1) cin.get();
+        cin.get();
         system("CLS");
         
     }
